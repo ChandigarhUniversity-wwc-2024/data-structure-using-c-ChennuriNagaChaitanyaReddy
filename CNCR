@@ -1,0 +1,172 @@
+//Name    :CHENNURI NAGA CHAITANYA REDDY
+//UID     :22BCS17028
+//Section :22BCS-609/A
+
+
+// Sum of Natural Numbers up to N
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    cout << n * (n + 1) / 2 << endl;
+    return 0;
+}
+
+//  Count Digits in a Number
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, count = 0;
+    cin >> n;
+    while (n > 0) {
+        n /= 10;
+        count++;
+    }
+    cout << count << endl;
+    return 0;
+}
+
+// Function Overloading for Calculating Area
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double area(double radius) {
+    return 3.14159 * radius * radius;
+}
+
+int area(int length, int breadth) {
+    return length * breadth;
+}
+
+double area(double base, double height, bool isTriangle) {
+    return 0.5 * base * height;
+}
+
+int main() {
+    double radius, base, height;
+    int length, breadth;
+
+    cin >> radius;
+    cin >> length >> breadth;
+    cin >> base >> height;
+
+    cout << area(radius) << endl;
+    cout << area(length, breadth) << endl;
+    cout << area(base, height, true) << endl;
+
+    return 0;
+}
+
+// Implement Polymorphism for Banking Transactions
+#include <iostream>
+using namespace std;
+
+class Account {
+public:
+    virtual void calculateInterest() = 0;
+};
+
+class SavingsAccount : public Account {
+    int balance;
+    double rate;
+    int time;
+public:
+    SavingsAccount(int b, double r, int t) : balance(b), rate(r), time(t) {}
+    void calculateInterest() override {
+        cout << "Savings Account Interest: " << balance * rate * time / 100 << endl;
+    }
+};
+
+class CurrentAccount : public Account {
+    int balance;
+    int fee;
+public:
+    CurrentAccount(int b, int f) : balance(b), fee(f) {}
+    void calculateInterest() override {
+        cout << "Balance after fee deduction: " << balance - fee << endl;
+    }
+};
+
+int main() {
+    int accountType;
+    cin >> accountType;
+
+    if (accountType == 1) {
+        int balance, time;
+        double rate;
+        cin >> balance >> rate >> time;
+        SavingsAccount sa(balance, rate, time);
+        sa.calculateInterest();
+    } else if (accountType == 2) {
+        int balance, fee;
+        cin >> balance >> fee;
+        CurrentAccount ca(balance, fee);
+        ca.calculateInterest();
+    } else {
+        cout << "Invalid account type." << endl;
+    }
+
+    return 0;
+}
+
+// Hierarchical Inheritance for Employee Management System
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+    int id;
+    int salary;
+public:
+    Employee(string n, int i, int s) : name(n), id(i), salary(s) {}
+    virtual void calculateEarnings() = 0;
+};
+
+class Manager : public Employee {
+    int rating;
+public:
+    Manager(string n, int i, int s, int r) : Employee(n, i, s), rating(r) {}
+    void calculateEarnings() override {
+        int bonus = salary * 0.1 * rating;
+        cout << "Employee: " << name << " (ID: " << id << ")\nRole: Manager\nBase Salary: " << salary << "\nBonus: " << bonus << "\nTotal Earnings: " << salary + bonus << endl;
+    }
+};
+
+class Developer : public Employee {
+    int extraHours;
+public:
+    Developer(string n, int i, int s, int e) : Employee(n, i, s), extraHours(e) {}
+    void calculateEarnings() override {
+        int overtime = extraHours * 500;
+        cout << "Employee: " << name << " (ID: " << id << ")\nRole: Developer\nBase Salary: " << salary << "\nOvertime Compensation: " << overtime << "\nTotal Earnings: " << salary + overtime << endl;
+    }
+};
+
+int main() {
+    int employeeType;
+    cin >> employeeType;
+
+    if (employeeType == 1) {
+        string name;
+        int id, salary, rating;
+        cin >> name >> id >> salary >> rating;
+        Manager m(name, id, salary, rating);
+        m.calculateEarnings();
+    } else if (employeeType == 2) {
+        string name;
+        int id, salary, extraHours;
+        cin >> name >> id >> salary >> extraHours;
+        Developer d(name, id, salary, extraHours);
+        d.calculateEarnings();
+    } else {
+        cout << "Invalid employee type." << endl;
+    }
+
+    return 0;
+}
